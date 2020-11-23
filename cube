@@ -3,8 +3,11 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Tsc\CatStorageSystem\Commands\HollaCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();
+
+$app->add(new HollaCommand());
 
 $app->run();
