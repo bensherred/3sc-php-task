@@ -7,68 +7,68 @@ use DateTimeInterface;
 
 interface FileInterface
 {
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getName();
 
-  /**
-   * @param string $name
-   *
-   * @return $this
-   */
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName($name);
 
-  /**
-   * @return int
-   */
+    /**
+     * @return int
+     */
     public function getSize();
 
-  /**
-   * @param int $size
-   *
-   * @return $this
-   */
+    /**
+     * @param int $size
+     *
+     * @return $this
+     */
     public function setSize($size);
 
-  /**
-   * @return DateTime
-   */
+    /**
+     * @return DateTime
+     */
     public function getCreatedTime();
 
-  /**
-   * @param DateTimeInterface $created
-   *
-   * @return $this
-   */
+    /**
+     * @param DateTimeInterface $created
+     *
+     * @return $this
+     */
     public function setCreatedTime(DateTimeInterface $created);
 
-  /**
-   * @return DateTimeInterface
-   */
+    /**
+     * @return DateTimeInterface
+     */
     public function getModifiedTime();
 
-  /**
-   * @param DateTimeInterface $modified
-   *
-   * @return $this
-   */
+    /**
+     * @param DateTimeInterface $modified
+     *
+     * @return $this
+     */
     public function setModifiedTime(DateTimeInterface $modified);
 
-  /**
-   * @return DirectoryInterface
-   */
+    /**
+     * @return DirectoryInterface
+     */
     public function getParentDirectory();
 
-  /**
-   * @param DirectoryInterface $parent
-   *
-   * @return $this
-   */
+    /**
+     * @param DirectoryInterface $parent
+     *
+     * @return $this
+     */
     public function setParentDirectory(DirectoryInterface $parent);
 
-  /**
-   * @return string
-   */
+    /**
+     * @return string
+     */
     public function getPath();
 }
