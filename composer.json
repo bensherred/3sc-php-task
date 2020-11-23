@@ -17,5 +17,14 @@
         "psr-4": {
             "Tsc\\CatStorageSystem\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/phpcs src --standard=PSR12",
+            "./vendor/bin/phpunit"
+        ],
+        "format": [
+            "./vendor/bin/phpcbf src --standard=PSR12"
+        ]
     }
 }
