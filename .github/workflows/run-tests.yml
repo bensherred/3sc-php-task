@@ -22,4 +22,6 @@ jobs:
         run: composer install -n --prefer-dist
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: |
+          ./vendor/bin/phpunit
+          ./vendor/bin/phpcs src --standard=PSR12
