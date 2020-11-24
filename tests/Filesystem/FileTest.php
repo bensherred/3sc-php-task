@@ -2,9 +2,9 @@
 
 namespace Tsc\CatStorageSystem\Tests\Filesystem;
 
-use PHPUnit\Framework\TestCase;
 use Tsc\CatStorageSystem\Contracts\FileInterface;
 use Tsc\CatStorageSystem\Filesystem\File;
+use Tsc\CatStorageSystem\Tests\TestCase;
 
 class FileTest extends TestCase
 {

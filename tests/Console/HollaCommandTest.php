@@ -2,10 +2,10 @@
 
 namespace Tsc\CatStorageSystem\Tests\Console;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
+use Tsc\CatStorageSystem\Tests\TestCase;
 
 class HollaCommandTest extends TestCase
 {

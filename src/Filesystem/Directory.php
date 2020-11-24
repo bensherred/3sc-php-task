@@ -8,13 +8,34 @@ use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 class Directory implements DirectoryInterface
 {
     /**
+     * The name of the directory.
+     *
+     * @var string
+     */
+    protected string $name;
+
+    /**
+     * The date and time the directory was created.
+     *
+     * @var DateTimeInterface
+     */
+    protected DateTimeInterface $createdTime;
+
+    /**
+     * The path of the directory.
+     *
+     * @var string
+     */
+    protected string $path;
+
+    /**
      * Get the name of the directory.
      *
      * @return string
      */
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return $this->name;
     }
 
     /**
@@ -25,7 +46,9 @@ class Directory implements DirectoryInterface
      */
     public function setName(string $name): DirectoryInterface
     {
-        // TODO: Implement setName() method.
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -35,7 +58,7 @@ class Directory implements DirectoryInterface
      */
     public function getCreatedTime(): DateTimeInterface
     {
-        // TODO: Implement getCreatedTime() method.
+        return $this->createdTime;
     }
 
     /**
@@ -46,7 +69,9 @@ class Directory implements DirectoryInterface
      */
     public function setCreatedTime(DateTimeInterface $created): DirectoryInterface
     {
-        // TODO: Implement setCreatedTime() method.
+        $this->createdTime = $created;
+
+        return $this;
     }
 
     /**
@@ -56,7 +81,7 @@ class Directory implements DirectoryInterface
      */
     public function getPath(): string
     {
-        // TODO: Implement getPath() method.
+        return $this->path;
     }
 
     /**
@@ -67,6 +92,8 @@ class Directory implements DirectoryInterface
      */
     public function setPath(string $path): DirectoryInterface
     {
-        // TODO: Implement setPath() method.
+        $this->path = $path;
+
+        return $this;
     }
 }

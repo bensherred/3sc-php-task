@@ -2,9 +2,9 @@
 
 namespace Tsc\CatStorageSystem\Tests\Filesystem;
 
-use PHPUnit\Framework\TestCase;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 use Tsc\CatStorageSystem\Filesystem\Directory;
+use Tsc\CatStorageSystem\Tests\TestCase;
 
 class DirectoryTest extends TestCase
 {
@@ -32,5 +32,13 @@ class DirectoryTest extends TestCase
     {
         $file = $this->getMockBuilder(Directory::class)->getMock();
         $this->assertInstanceOf(DirectoryInterface::class, $file);
+    }
+
+    public function test_it_can_set_and_get_the_name()
+    {
+        $this->directory->setName($name = $this->faker->word);
+
+        $this->assertIsString($this->directory->getName());
+        $this->assertSame($name, $this->directory->getName());
     }
 }

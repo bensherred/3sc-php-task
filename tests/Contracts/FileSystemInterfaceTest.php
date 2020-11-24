@@ -2,8 +2,8 @@
 
 namespace Tsc\CatStorageSystem\Tests\Contracts;
 
-use PHPUnit\Framework\TestCase;
 use Tsc\CatStorageSystem\Contracts\FileSystemInterface;
+use Tsc\CatStorageSystem\Tests\TestCase;
 
 class FileSystemInterfaceTest extends TestCase
 {
