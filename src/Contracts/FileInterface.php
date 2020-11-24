@@ -2,7 +2,6 @@
 
 namespace Tsc\CatStorageSystem\Contracts;
 
-use DateTime;
 use DateTimeInterface;
 
 interface FileInterface
@@ -38,9 +37,9 @@ interface FileInterface
     /**
      * Get the date and time the file was created.
      *
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getCreatedTime(): DateTime;
+    public function getCreatedTime(): DateTimeInterface;
 
     /**
      * Set the date and time the file was created.
