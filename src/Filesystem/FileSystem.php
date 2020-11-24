@@ -95,11 +95,7 @@ class FileSystem implements FileSystemInterface
      */
     public function deleteDirectory(DirectoryInterface $directory): bool
     {
-        // TODO: check if folder already exists
-
-        rmdir($directory->getPath() . '/' . $directory->getName());
-
-        return true;
+        return rmdir($directory->getPath() . '/' . $directory->getName());
     }
 
     /**
@@ -111,7 +107,16 @@ class FileSystem implements FileSystemInterface
      */
     public function renameDirectory(DirectoryInterface $directory, string $newName): string
     {
-        // TODO: Implement renameDirectory() method.
+        // TODO: check if folder actually exists
+
+        rename(
+            $directory->getPath() . '/' . $directory->getName(),
+            $directory->getPath() . '/' . $newName
+        );
+
+        $directory->setName($newName);
+
+        return $newName;
     }
 
     /**

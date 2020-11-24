@@ -63,4 +63,21 @@ class FileSystemTest extends TestCase
 
         $this->assertFalse(is_dir($fullPath));
     }
+
+    public function test_it_can_rename_a_directory()
+    {
+        $directory = DirectoryFactory::create();
+        $this->fileSystem->createRootDirectory($directory);
+
+        $oldName = $directory->getName();
+        $newName = $this->faker->words($this->faker->numberBetween(4, 5), true);
+
+        $this->assertTrue(is_dir($directory->getPath() . '/' . $oldName));
+
+        $this->fileSystem->renameDirectory($directory, $newName);
+
+        $this->assertTrue(is_dir($directory->getPath() . '/' . $newName));
+        $this->assertFalse(is_dir($directory->getPath() . '/' . $oldName));
+        $this->assertSame($directory->getName(), $newName);
+    }
 }
