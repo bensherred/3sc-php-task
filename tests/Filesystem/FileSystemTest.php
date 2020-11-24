@@ -25,12 +25,13 @@ class FileSystemTest extends TestCase
     public function test_it_can_create_a_root_directory()
     {
         $rootFolder = DirectoryFactory::create();
+        $fullPath = $rootFolder->getPath() . '/' . $rootFolder->getName();
 
-        $this->assertFalse(is_dir($rootFolder->getPath()));
+        $this->assertFalse(is_dir($fullPath));
 
         $this->fileSystem->createRootDirectory($rootFolder);
 
-        $this->assertTrue(is_dir($rootFolder->getPath()));
+        $this->assertTrue(is_dir($fullPath));
     }
 
     public function test_it_create_a_directory()
@@ -40,14 +41,13 @@ class FileSystemTest extends TestCase
 
         $directory = DirectoryFactory::create();
 
-        $path = $parent->getPath() . '/' . $directory->getName();
+        $fullPath = $parent->getPath() . '/' . $directory->getName();
 
-        $this->assertFalse(is_dir($path));
+        $this->assertFalse(is_dir($fullPath));
 
         $this->fileSystem->createDirectory($directory, $parent);
 
-        $this->assertTrue(is_dir($path));
-        $this->assertSame($path, $directory->getPath());
+        $this->assertTrue(is_dir($fullPath));
     }
 
     public function test_it_can_delete_a_directory()
@@ -55,10 +55,12 @@ class FileSystemTest extends TestCase
         $directory = DirectoryFactory::create();
         $this->fileSystem->createRootDirectory($directory);
 
-        $this->assertTrue(is_dir($directory->getPath()));
+        $fullPath = $directory->getPath() . '/' . $directory->getName();
+
+        $this->assertTrue(is_dir($fullPath));
 
         $this->fileSystem->deleteDirectory($directory);
 
-        $this->assertFalse(is_dir($directory->getPath()));
+        $this->assertFalse(is_dir($fullPath));
     }
 }

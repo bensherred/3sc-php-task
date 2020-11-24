@@ -13,11 +13,11 @@ class DirectoryFactory extends Factory
      */
     public static function create(): Directory
     {
-        $name = self::faker()->word;
+        $name = self::faker()->words(self::faker()->numberBetween(4, 5), true);
 
         return (new Directory())
             ->setName($name)
             ->setCreatedTime(self::faker()->dateTime)
-            ->setPath('./testing-tmp/' . $name);
+            ->setPath('./testing-tmp');
     }
 }

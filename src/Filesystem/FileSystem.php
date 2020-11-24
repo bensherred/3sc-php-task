@@ -64,7 +64,7 @@ class FileSystem implements FileSystemInterface
     {
         // TODO: check if folder already exists
 
-        mkdir($directory->getPath());
+        mkdir($directory->getPath() . '/' . $directory->getName());
 
         return $directory;
     }
@@ -84,8 +84,6 @@ class FileSystem implements FileSystemInterface
 
         mkdir($path);
 
-        $directory->setPath($path);
-
         return $directory;
     }
 
@@ -99,7 +97,7 @@ class FileSystem implements FileSystemInterface
     {
         // TODO: check if folder already exists
 
-        rmdir($directory->getPath());
+        rmdir($directory->getPath() . '/' . $directory->getName());
 
         return true;
     }
