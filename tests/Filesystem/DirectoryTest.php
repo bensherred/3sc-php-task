@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Tests\Filesystem;
 
+use DateTimeInterface;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 use Tsc\CatStorageSystem\Filesystem\Directory;
 use Tsc\CatStorageSystem\Tests\TestCase;
@@ -40,5 +41,23 @@ class DirectoryTest extends TestCase
 
         $this->assertIsString($this->directory->getName());
         $this->assertSame($name, $this->directory->getName());
+    }
+
+    public function test_it_can_set_and_get_the_created_time()
+    {
+        $this->directory->setCreatedTime($createdTime = $this->faker->dateTime);
+
+        $this->assertInstanceOf(DateTimeInterface::class, $this->directory->getCreatedTime());
+        $this->assertSame($createdTime, $this->directory->getCreatedTime());
+    }
+
+    public function test_it_can_set_and_get_the_path()
+    {
+        $path = "/{$this->faker->word}/{$this->faker->word}";
+
+        $this->directory->setPath($path);
+
+        $this->assertIsString($this->directory->getPath());
+        $this->assertSame($path, $this->directory->getPath());
     }
 }
