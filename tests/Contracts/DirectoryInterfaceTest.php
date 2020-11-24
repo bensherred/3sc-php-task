@@ -1,15 +1,15 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Tests;
+namespace Tsc\CatStorageSystem\Tests\Contracts;
 
 use PHPUnit\Framework\TestCase;
-use Tsc\CatStorageSystem\DirectoryInterface;
+use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 
 class DirectoryInterfaceTest extends TestCase
 {
     public function test_it_creates_a_new_instance()
     {
         $stub = $this->getMockBuilder( DirectoryInterface::class)->getMock();
-        $this->assertTrue($stub instanceof DirectoryInterface);
+        $this->assertInstanceOf(DirectoryInterface::class, $stub);
     }
 }

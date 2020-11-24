@@ -1,15 +1,15 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Tests;
+namespace Tsc\CatStorageSystem\Tests\Contracts;
 
 use PHPUnit\Framework\TestCase;
-use Tsc\CatStorageSystem\FileSystemInterface;
+use Tsc\CatStorageSystem\Contracts\FileSystemInterface;
 
 class FileSystemInterfaceTest extends TestCase
 {
     public function test_it_creates_a_new_instance()
     {
         $stub = $this->getMockBuilder(FileSystemInterface::class)->getMock();
-        $this->assertTrue($stub instanceof FileSystemInterface);
+        $this->assertInstanceOf(FileSystemInterface::class, $stub);
     }
 }

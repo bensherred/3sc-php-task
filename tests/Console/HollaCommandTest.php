@@ -1,13 +1,13 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Tests;
+namespace Tsc\CatStorageSystem\Tests\Console;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
 
-class ConsoleTest extends TestCase
+class HollaCommandTest extends TestCase
 {
     public function test_holla_command_outputs_message()
     {
