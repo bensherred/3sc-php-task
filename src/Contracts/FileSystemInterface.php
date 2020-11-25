@@ -5,100 +5,110 @@ namespace Tsc\CatStorageSystem\Contracts;
 interface FileSystemInterface
 {
     /**
-     * @param FileInterface   $file
-     * @param DirectoryInterface $parent
+     * Create the specified file in the specified directory.
      *
+     * @param  FileInterface  $file
+     * @param  DirectoryInterface  $parent
      * @return FileInterface
      */
-    public function createFile(FileInterface $file, DirectoryInterface $parent);
+    public function createFile(FileInterface $file, DirectoryInterface $parent): FileInterface;
 
     /**
-     * @param FileInterface $file
+     * Update the specified file.
      *
+     * @param  FileInterface  $file
      * @return FileInterface
      */
-    public function updateFile(FileInterface $file);
+    public function updateFile(FileInterface $file): FileInterface;
 
     /**
-     * @param FileInterface $file
-     * @param string $newName
+     * Rename the specified file.
      *
+     * @param  FileInterface  $file
+     * @param  string  $newName
      * @return FileInterface
      */
-    public function renameFile(FileInterface $file, $newName);
+    public function renameFile(FileInterface $file, string $newName): FileInterface;
 
     /**
-     * @param FileInterface $file
+     * Delete the specified file.
      *
+     * @param  FileInterface  $file
      * @return bool
      */
-    public function deleteFile(FileInterface $file);
+    public function deleteFile(FileInterface $file): bool;
 
     /**
-     * @param DirectoryInterface $directory
+     * Create the root directory.
      *
+     * @param  DirectoryInterface  $directory
      * @return DirectoryInterface
      */
-    public function createRootDirectory(DirectoryInterface $directory);
+    public function createRootDirectory(DirectoryInterface $directory): DirectoryInterface;
 
     /**
-     * @param DirectoryInterface $directory
-     * @param DirectoryInterface $parent
+     * Create the specified directory.
      *
+     * @param  DirectoryInterface  $directory
+     * @param  DirectoryInterface  $parent
      * @return DirectoryInterface
      */
-    public function createDirectory(
-        DirectoryInterface $directory,
-        DirectoryInterface $parent
-    );
+    public function createDirectory(DirectoryInterface $directory, DirectoryInterface $parent): DirectoryInterface;
 
     /**
-     * @param DirectoryInterface $directory
+     * Delete the specified directory.
      *
+     * @param  DirectoryInterface  $directory
      * @return bool
      */
-    public function deleteDirectory(DirectoryInterface $directory);
+    public function deleteDirectory(DirectoryInterface $directory): bool;
 
     /**
-     * @param DirectoryInterface $directory
-     * @param string $newName
+     * Rename the specified directory.
      *
+     * @param  DirectoryInterface  $directory
+     * @param  string  $newName
      * @return DirectoryInterface
      */
-    public function renameDirectory(DirectoryInterface $directory, $newName);
+    public function renameDirectory(DirectoryInterface $directory, string $newName): DirectoryInterface;
 
     /**
-     * @param DirectoryInterface $directory
+     * Get the number of directories in the specified folder.
      *
+     * @param  DirectoryInterface  $directory
      * @return int
      */
-    public function getDirectoryCount(DirectoryInterface $directory);
+    public function getDirectoryCount(DirectoryInterface $directory): int;
 
     /**
-     * @param DirectoryInterface $directory
+     * Get the number of files in the specified folder.
      *
+     * @param  DirectoryInterface  $directory
      * @return int
      */
-    public function getFileCount(DirectoryInterface $directory);
+    public function getFileCount(DirectoryInterface $directory): int;
 
     /**
-     * @param DirectoryInterface $directory
+     * Get the size of the specified directory.
      *
+     * @param  DirectoryInterface  $directory
      * @return int
      */
-    public function getDirectorySize(DirectoryInterface $directory);
+    public function getDirectorySize(DirectoryInterface $directory): int;
 
     /**
-     * @param DirectoryInterface $directory
+     * Get the directories within the specified directory.
      *
+     * @param  DirectoryInterface  $directory
      * @return DirectoryInterface[]
      */
-    public function getDirectories(DirectoryInterface $directory);
+    public function getDirectories(DirectoryInterface $directory): array;
 
     /**
-     * @param DirectoryInterface $directory
+     * Get the files within the specified directory.
      *
+     * @param  DirectoryInterface  $directory
      * @return FileInterface[]
      */
-    public function getFiles(DirectoryInterface $directory);
+    public function getFiles(DirectoryInterface $directory): array;
 }

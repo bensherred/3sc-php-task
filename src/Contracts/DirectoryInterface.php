@@ -7,38 +7,47 @@ use DateTimeInterface;
 interface DirectoryInterface
 {
     /**
+     * Get the name of the directory.
+     *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
-     * @param string $name
+     * Set the name of the folder.
      *
+     * @param  string  $name
      * @return $this
      */
-    public function setName($name);
+    public function setName(string $name): self;
 
     /**
+     * Get the date and time the folder was created.
+     *
      * @return DateTimeInterface
      */
-    public function getCreatedTime();
+    public function getCreatedTime(): DateTimeInterface;
 
     /**
-     * @param DateTimeInterface $created
+     * Set the date and time the directory was created.
      *
+     * @param  DateTimeInterface  $created
      * @return $this
      */
-    public function setCreatedTime(DateTimeInterface $created);
+    public function setCreatedTime(DateTimeInterface $created): self;
 
     /**
+     * Get the path of the directory.
+     *
      * @return string
      */
-    public function getPath();
+    public function getPath(): string;
 
     /**
-     * @param string $path
+     * Set the path of the directory.
      *
+     * @param  string  $path
      * @return $this
      */
-    public function setPath($path);
+    public function setPath(string $path): self;
 }

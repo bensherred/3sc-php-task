@@ -2,73 +2,87 @@
 
 namespace Tsc\CatStorageSystem\Contracts;
 
-use DateTime;
 use DateTimeInterface;
 
 interface FileInterface
 {
     /**
+     * Get the name of the file.
+     *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
-     * @param string $name
+     * Set the name of the file.
      *
+     * @param string $name
      * @return $this
      */
-    public function setName($name);
+    public function setName(string $name): self;
 
     /**
+     * Get the size of the file.
+     *
      * @return int
      */
-    public function getSize();
+    public function getSize(): int;
 
     /**
-     * @param int $size
-     *
+     * @param  int  $size
      * @return $this
      */
-    public function setSize($size);
+    public function setSize(int $size): self;
 
     /**
-     * @return DateTime
-     */
-    public function getCreatedTime();
-
-    /**
-     * @param DateTimeInterface $created
+     * Get the date and time the file was created.
      *
-     * @return $this
-     */
-    public function setCreatedTime(DateTimeInterface $created);
-
-    /**
      * @return DateTimeInterface
      */
-    public function getModifiedTime();
+    public function getCreatedTime(): DateTimeInterface;
 
     /**
-     * @param DateTimeInterface $modified
+     * Set the date and time the file was created.
      *
+     * @param  DateTimeInterface  $created
      * @return $this
      */
-    public function setModifiedTime(DateTimeInterface $modified);
+    public function setCreatedTime(DateTimeInterface $created): self;
 
     /**
+     * Get the date and time the file was last modified.
+     *
+     * @return DateTimeInterface
+     */
+    public function getModifiedTime(): DateTimeInterface;
+
+    /**
+     * Set the date and time the file was last modified.
+     *
+     * @param  DateTimeInterface  $modified
+     * @return $this
+     */
+    public function setModifiedTime(DateTimeInterface $modified): self;
+
+    /**
+     * Get the parent directory of the file.
+     *
      * @return DirectoryInterface
      */
-    public function getParentDirectory();
+    public function getParentDirectory(): DirectoryInterface;
 
     /**
-     * @param DirectoryInterface $parent
+     * Set the parent directory for the file.
      *
+     * @param  DirectoryInterface  $parent
      * @return $this
      */
-    public function setParentDirectory(DirectoryInterface $parent);
+    public function setParentDirectory(DirectoryInterface $parent): self;
 
     /**
+     * Get the path to the folder.
+     *
      * @return string
      */
-    public function getPath();
+    public function getPath(): string;
 }
