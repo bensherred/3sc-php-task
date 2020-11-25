@@ -1,12 +1,13 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands\CatCommands;
+namespace Tsc\CatStorageSystem\Commands\ImageCommands;
 
 use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tsc\CatStorageSystem\Commands\FileSystemCommand;
 
-class FileCountCommand extends CatCommand
+class FileCountCommand extends FileSystemCommand
 {
     /**
      * Configure the console command
@@ -15,7 +16,7 @@ class FileCountCommand extends CatCommand
      */
     protected function configure(): void
     {
-        $this->setName('cat:file-count')
+        $this->setName('image:file-count')
             ->setDescription('Get the number of files in the images directory');
     }
 
@@ -32,11 +33,11 @@ class FileCountCommand extends CatCommand
             $count = $this->fileSystem->getFileCount($this->rootDirectory);
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
-        $output->writeln('<info>There are ' . $count . ' cat gif images.</info>');
+        $output->writeln('<info>There are ' . $count . ' files in the images directory.</info>');
 
-        return CatCommand::SUCCESS;
+        return FileSystemCommand::SUCCESS;
     }
 }

@@ -6,9 +6,10 @@ use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tsc\CatStorageSystem\Commands\FileSystemCommand;
 use Tsc\CatStorageSystem\Filesystem\File;
 
-class DeleteCommand extends CatCommand
+class DeleteCommand extends FileSystemCommand
 {
     /**
      * Configure the console command
@@ -35,7 +36,7 @@ class DeleteCommand extends CatCommand
 
         if (!$name) {
             $output->writeln('<error>Please enter the name of the cat gif you wish to delete!</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
         $file = (new File())
@@ -46,11 +47,11 @@ class DeleteCommand extends CatCommand
             $this->fileSystem->deleteFile($file);
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
         $output->writeln('<info>Your cat gif has been deleted!</info>');
 
-        return CatCommand::SUCCESS;
+        return FileSystemCommand::SUCCESS;
     }
 }

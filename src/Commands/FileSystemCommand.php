@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands\CatCommands;
+namespace Tsc\CatStorageSystem\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
@@ -8,7 +8,7 @@ use Tsc\CatStorageSystem\Filesystem\Adapters\LocalAdapter;
 use Tsc\CatStorageSystem\Filesystem\Directory;
 use Tsc\CatStorageSystem\Filesystem\FileSystem;
 
-class CatCommand extends Command
+class FileSystemCommand extends Command
 {
     /**
      * An instance of the filesystem.

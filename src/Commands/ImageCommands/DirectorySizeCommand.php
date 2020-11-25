@@ -1,12 +1,13 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands\CatCommands;
+namespace Tsc\CatStorageSystem\Commands\ImageCommands;
 
 use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tsc\CatStorageSystem\Commands\FileSystemCommand;
 
-class DirectoryCommand extends CatCommand
+class DirectorySizeCommand extends FileSystemCommand
 {
     /**
      * Configure the console command
@@ -15,8 +16,8 @@ class DirectoryCommand extends CatCommand
      */
     protected function configure(): void
     {
-        $this->setName('cat:directories')
-            ->setDescription('List all the directories in the images folder');
+        $this->setName('image:directory-size')
+            ->setDescription('Get the directory size of the images folder');
     }
 
     /**
@@ -29,18 +30,14 @@ class DirectoryCommand extends CatCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            $directories = $this->fileSystem->getDirectories($this->rootDirectory);
+            $size = $this->fileSystem->getFileCount($this->rootDirectory);
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
-        $output->writeln('<info>Here are the sub directories in the images directory:</info>');
+        $output->writeln('<info>The size is of the images directory is ' . $size . '.</info>');
 
-        foreach ($directories as $directory) {
-            $output->writeln($directory->getName());
-        }
-
-        return CatCommand::SUCCESS;
+        return FileSystemCommand::SUCCESS;
     }
 }

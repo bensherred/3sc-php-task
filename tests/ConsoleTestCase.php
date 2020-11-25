@@ -3,9 +3,9 @@
 namespace Tsc\CatStorageSystem\Tests;
 
 use Symfony\Component\Console\Application;
-use Tsc\CatStorageSystem\Commands\CatCommands\DirectoryCommand;
 use Tsc\CatStorageSystem\Commands\CatCommands\ListCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
+use Tsc\CatStorageSystem\Commands\ImageCommands\DirectoryCommand;
 
 class ConsoleTestCase extends TestCase
 {
