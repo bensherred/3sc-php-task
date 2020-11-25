@@ -173,6 +173,22 @@ class FileSystem implements FileSystemInterface
      */
     public function getFiles(DirectoryInterface $directory): array
     {
-        // TODO: Implement getFiles() method.
+        $files = [];
+        $directoryFiles = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($directory->getPath() . '/' . $directory->getName())
+        );
+
+        foreach ($directoryFiles as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+
+            $files[] = (new File())
+                ->setName($file->getFilename())
+                ->setSize($file->getSize())
+                ->setParentDirectory($directory);
+        }
+
+        return $files;
     }
 }
