@@ -3,6 +3,7 @@
 namespace Tsc\CatStorageSystem\Tests;
 
 use Symfony\Component\Console\Application;
+use Tsc\CatStorageSystem\Commands\DirectoryCatCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
 use Tsc\CatStorageSystem\Commands\ListCatCommand;
 
@@ -28,6 +29,7 @@ class ConsoleTestCase extends TestCase
 
         // Register the commands
         $this->app->addCommands([
+            new DirectoryCatCommand(),
             new HollaCommand(),
             new ListCatCommand(),
         ]);

@@ -3,13 +3,17 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Tsc\CatStorageSystem\Commands\DirectoryCatCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
 use Tsc\CatStorageSystem\Commands\ListCatCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();
 
-$app->add(new ListCatCommand());
-$app->add(new HollaCommand());
+$app->addCommands([
+    new DirectoryCatCommand(),
+    new HollaCommand(),
+    new ListCatCommand(),
+]);
 
 $app->run();

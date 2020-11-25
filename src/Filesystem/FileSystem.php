@@ -2,6 +2,8 @@
 
 namespace Tsc\CatStorageSystem\Filesystem;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 use Tsc\CatStorageSystem\Contracts\FileInterface;
 use Tsc\CatStorageSystem\Contracts\FileSystemInterface;
@@ -162,7 +164,26 @@ class FileSystem implements FileSystemInterface
      */
     public function getDirectories(DirectoryInterface $directory): array
     {
-        // TODO: Implement getDirectories() method.
+        $directories = [];
+
+        $directoryIterator = new RecursiveDirectoryIterator(
+            $directory->getPath() . '/' . $directory->getName(),
+            RecursiveDirectoryIterator::SKIP_DOTS
+        );
+
+        $subDirectories = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::SELF_FIRST);
+
+        foreach ($subDirectories as $subDirectory) {
+            if (! $subDirectory->isDir()) {
+                continue;
+            }
+
+            $directories[] = (new Directory())
+                ->setName($subDirectory->getFilename())
+                ->setPath($subDirectory->getPath());
+        }
+
+        return $directories;
     }
 
     /**
@@ -174,8 +195,8 @@ class FileSystem implements FileSystemInterface
     public function getFiles(DirectoryInterface $directory): array
     {
         $files = [];
-        $directoryFiles = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($directory->getPath() . '/' . $directory->getName())
+        $directoryFiles = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($directory->getPath() . '/' . $directory->getName())
         );
 
         foreach ($directoryFiles as $file) {
