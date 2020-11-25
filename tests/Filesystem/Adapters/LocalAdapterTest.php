@@ -12,10 +12,25 @@ use Tsc\CatStorageSystem\Tests\TestCase;
 
 class LocalAdapterTest extends TestCase
 {
+    /**
+     * The instance of the adapter.
+     *
+     * @var AdapterInterface|LocalAdapter
+     */
     protected AdapterInterface $adapter;
 
+    /**
+     * The root path for storing temp testing files.
+     *
+     * @var string
+     */
     protected string $path;
 
+    /**
+     * Create a new adapter and set the root path.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -119,14 +134,18 @@ class LocalAdapterTest extends TestCase
 
     public function test_it_can_get_the_size_of_a_directory()
     {
-        $fileName = $this->faker->word . '.txt';
-        $path = $this->path . '/' . $fileName;
+        $directoryName = $this->faker->word;
+        $directoryPath = $this->path . '/' . $directoryName;
 
-        $size = (new SplFileObject($path, 'w'))
+        $this->adapter->makeDirectory($directoryPath);
+
+        $fileName = $this->faker->word . '.txt';
+
+        $size = (new SplFileObject($directoryPath . '/' . $fileName, 'w'))
             ->fwrite('3 Sided Cube');
 
-        $this->assertIsInt($this->adapter->directorySize($path));
-        $this->assertSame($size, $this->adapter->directorySize($path));
+        $this->assertIsInt($this->adapter->directorySize($directoryPath));
+        $this->assertSame($size, $this->adapter->directorySize($directoryPath));
     }
 
     public function test_it_can_make_a_directory()

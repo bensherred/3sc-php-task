@@ -102,7 +102,7 @@ class LocalAdapter implements AdapterInterface
      */
     public function directorySize(string $path): int
     {
-        return (new SplFileInfo($path))->getSize();
+        return $this->getFolderSize($path);
     }
 
     /**
@@ -156,5 +156,21 @@ class LocalAdapter implements AdapterInterface
         rename($oldPath, $newPath);
 
         return new SplFileInfo($newPath);
+    }
+
+    /**
+     * Get the size of the specified folder
+     * @param  string  $path
+     * @return false|int
+     */
+    protected function getFolderSize(string $path)
+    {
+        $size = 0;
+
+        foreach (glob($path . '/*', GLOB_NOSORT) as $item) {
+            $size += is_file($item) ? filesize($item) : $this->getFolderSize($item);
+        }
+
+        return $size;
     }
 }

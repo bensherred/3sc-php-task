@@ -30,13 +30,16 @@ class DirectorySizeCommand extends FileSystemCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            $size = $this->fileSystem->getFileCount($this->rootDirectory);
+            $size = $this->fileSystem->getDirectorySize($this->rootDirectory);
+
+            // Covert the size to megabytes
+            $size = ($size / 1024) / 1024;
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return FileSystemCommand::FAILURE;
         }
 
-        $output->writeln('<info>The size is of the images directory is ' . $size . '.</info>');
+        $output->writeln('<info>The size is of the images directory is ' . round($size) . 'MB.</info>');
 
         return FileSystemCommand::SUCCESS;
     }
