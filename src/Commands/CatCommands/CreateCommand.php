@@ -6,9 +6,10 @@ use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tsc\CatStorageSystem\Commands\FileSystemCommand;
 use Tsc\CatStorageSystem\Filesystem\File;
 
-class CreateCommand extends CatCommand
+class CreateCommand extends FileSystemCommand
 {
     /**
      * Configure the console command
@@ -35,7 +36,7 @@ class CreateCommand extends CatCommand
 
         if (!$name) {
             $output->writeln('<error>Please enter a name for the new cat gif!</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
         $file = (new File())
@@ -45,11 +46,11 @@ class CreateCommand extends CatCommand
             $this->fileSystem->createFile($file, $this->rootDirectory);
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
         $output->writeln('<info>Your new cat gif has been created, go check it out!</info>');
 
-        return CatCommand::SUCCESS;
+        return FileSystemCommand::SUCCESS;
     }
 }

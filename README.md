@@ -2,7 +2,7 @@
 
 ### Getting Started & Requirements
 
-* You'll need php 7.3+
+* You'll need php 7.4+ (due to typed properties)
 * Clone this repository
 * Run `composer install` from the project directory
 

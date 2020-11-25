@@ -5,8 +5,9 @@ namespace Tsc\CatStorageSystem\Commands\CatCommands;
 use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Tsc\CatStorageSystem\Commands\FileSystemCommand;
 
-class ListCommand extends CatCommand
+class ListCommand extends FileSystemCommand
 {
     /**
      * Configure the console command
@@ -32,7 +33,7 @@ class ListCommand extends CatCommand
             $files = $this->fileSystem->getFiles($this->rootDirectory);
         } catch (Exception $exception) {
             $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
-            return CatCommand::FAILURE;
+            return FileSystemCommand::FAILURE;
         }
 
         $output->writeln('<info>Here are the names of your awesome cat GIF\'s:</info>');
@@ -41,6 +42,6 @@ class ListCommand extends CatCommand
             $output->writeln($file->getName());
         }
 
-        return CatCommand::SUCCESS;
+        return FileSystemCommand::SUCCESS;
     }
 }
