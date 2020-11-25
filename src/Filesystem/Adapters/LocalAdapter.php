@@ -17,9 +17,8 @@ class LocalAdapter implements AdapterInterface
     public function files(string $path): array
     {
         $files = [];
-        $filesIterator = new DirectoryIterator($path);
 
-        foreach ($filesIterator as $item) {
+        foreach ($this->getDirectoryItems($path) as $item) {
             if ($item->isDir() || $item->isDot()) {
                 continue;
             }
@@ -64,24 +63,6 @@ class LocalAdapter implements AdapterInterface
     }
 
     /**
-     * Rename the specified file.
-     *
-     * @param  string  $path
-     * @param  string  $oldName
-     * @param  string  $newName
-     * @return SplFileInfo
-     */
-    public function renameFile(string $path, string $oldName, string $newName): SplFileInfo
-    {
-        $oldPath = $path . '/' . $oldName;
-        $newPath = $path . '/' . $newName;
-
-        rename($oldPath, $newPath);
-
-        return new SplFileInfo($newPath);
-    }
-
-    /**
      * Delete the specified file.
      *
      * @param  string  $path
@@ -101,9 +82,8 @@ class LocalAdapter implements AdapterInterface
     public function directories(string $path): array
     {
         $directories = [];
-        $directoryIterator = new DirectoryIterator($path);
 
-        foreach ($directoryIterator as $item) {
+        foreach ($this->getDirectoryItems($path) as $item) {
             if (! $item->isDir() || $item->isDot()) {
                 continue;
             }
@@ -139,24 +119,6 @@ class LocalAdapter implements AdapterInterface
     }
 
     /**
-     * Rename the specified directory.
-     *
-     * @param  string  $path
-     * @param  string  $oldName
-     * @param  string  $newName
-     * @return SplFileInfo
-     */
-    public function renameDirectory(string $path, string $oldName, string $newName): SplFileInfo
-    {
-        $oldPath = $path . '/' . $oldName;
-        $newPath = $path . '/' . $newName;
-
-        rename($oldPath, $newPath);
-
-        return new SplFileInfo($newPath);
-    }
-
-    /**
      * Delete the specified directory.
      *
      * @param  string  $path
@@ -165,5 +127,34 @@ class LocalAdapter implements AdapterInterface
     public function deleteDirectory(string $path): bool
     {
         return rmdir($path);
+    }
+
+    /**
+     * Get the files and directories within the specified path.
+     *
+     * @param  string  $path
+     * @return DirectoryIterator
+     */
+    protected function getDirectoryItems(string $path)
+    {
+        return new DirectoryIterator($path);
+    }
+
+    /**
+     * Rename the specified directory or file
+     *
+     * @param  string  $path
+     * @param  string  $oldName
+     * @param  string  $newName
+     * @return SplFileInfo
+     */
+    public function rename(string $path, string $oldName, string $newName): SplFileInfo
+    {
+        $oldPath = $path . '/' . $oldName;
+        $newPath = $path . '/' . $newName;
+
+        rename($oldPath, $newPath);
+
+        return new SplFileInfo($newPath);
     }
 }

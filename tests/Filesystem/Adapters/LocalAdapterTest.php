@@ -83,7 +83,7 @@ class LocalAdapterTest extends TestCase
 
         $newName = $this->faker->word . '.txt';
 
-        $this->adapter->renameFile($this->path, $oldName, $newName);
+        $this->adapter->rename($this->path, $oldName, $newName);
 
         $this->assertFileExists($this->path . '/' . $newName);
         $this->assertFileDoesNotExist($this->path . '/' . $oldName);
@@ -151,7 +151,7 @@ class LocalAdapterTest extends TestCase
         $this->assertDirectoryExists($path);
 
         $newName = $this->faker->word;
-        $this->adapter->renameDirectory($this->path, $directoryName, $newName);
+        $this->adapter->rename($this->path, $directoryName, $newName);
 
         $this->assertDirectoryExists($this->path . '/' . $newName);
         $this->assertDirectoryDoesNotExist($path);

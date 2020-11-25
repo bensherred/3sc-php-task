@@ -33,16 +33,6 @@ interface AdapterInterface
     public function updateFile(string $path, int $time): SplFileInfo;
 
     /**
-     * Rename the specified file.
-     *
-     * @param  string  $path
-     * @param  string  $oldName
-     * @param  string  $newName
-     * @return SplFileInfo
-     */
-    public function renameFile(string $path, string $oldName, string $newName): SplFileInfo;
-
-    /**
      * Delete the specified file.
      *
      * @param  string  $path
@@ -75,20 +65,20 @@ interface AdapterInterface
     public function makeDirectory(string $path): SplFileInfo;
 
     /**
-     * Rename the specified directory.
-     *
-     * @param  string  $path
-     * @param  string  $oldName
-     * @param  string  $newName
-     * @return SplFileInfo
-     */
-    public function renameDirectory(string $path, string $oldName, string $newName): SplFileInfo;
-
-    /**
      * Delete the specified directory.
      *
      * @param  string  $path
      * @return bool
      */
     public function deleteDirectory(string $path): bool;
+
+    /**
+     * Rename the specified directory or file.
+     *
+     * @param  string  $path
+     * @param  string  $oldName
+     * @param  string  $newName
+     * @return SplFileInfo
+     */
+    public function rename(string $path, string $oldName, string $newName): SplFileInfo;
 }
