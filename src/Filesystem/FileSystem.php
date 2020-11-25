@@ -80,7 +80,7 @@ class FileSystem implements FileSystemInterface
     {
         // TODO: check if folder already exists
 
-        $path = $parent->getPath() . '/' . $directory->getName();
+        $path = $parent->getPath() . '/' . $parent->getName() . '/' . $directory->getName();
 
         mkdir($path);
 
@@ -120,18 +120,20 @@ class FileSystem implements FileSystemInterface
     }
 
     /**
-     * Get the number of directories in the specified folder.
+     * Get the number of directories in the specified directory.
      *
      * @param  DirectoryInterface  $directory
      * @return int
      */
     public function getDirectoryCount(DirectoryInterface $directory): int
     {
-        // TODO: Implement getDirectoryCount() method.
+        $path = $directory->getPath() . '/' . $directory->getName();
+
+        return count(glob($path . '/*', GLOB_ONLYDIR));
     }
 
     /**
-     * Get the number of files in the specified folder.
+     * Get the number of files in the specified directory.
      *
      * @param  DirectoryInterface  $directory
      * @return int
