@@ -4,6 +4,7 @@ namespace Tsc\CatStorageSystem\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
+use Tsc\CatStorageSystem\Filesystem\Adapters\LocalAdapter;
 use Tsc\CatStorageSystem\Filesystem\Directory;
 use Tsc\CatStorageSystem\Filesystem\FileSystem;
 
@@ -33,7 +34,9 @@ class CatCommand extends Command
     {
         parent::__construct($name);
 
-        $this->fileSystem = new FileSystem();
+        $this->fileSystem = new FileSystem(
+            new LocalAdapter()
+        );
 
         $this->rootDirectory = (new Directory())
             ->setName('images')

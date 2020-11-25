@@ -25,7 +25,7 @@ class FileSystem implements FileSystemInterface
      */
     public function __construct(AdapterInterface $adapter)
     {
-        $this->adapter = new $adapter();
+        $this->adapter = $adapter;
     }
 
     /**
