@@ -70,7 +70,7 @@ interface FileSystemInterface
      * @param  string  $newName
      * @return DirectoryInterface
      */
-    public function renameDirectory(DirectoryInterface $directory, string $newName): string;
+    public function renameDirectory(DirectoryInterface $directory, string $newName): DirectoryInterface;
 
     /**
      * Get the number of directories in the specified folder.

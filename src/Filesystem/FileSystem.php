@@ -2,14 +2,32 @@
 
 namespace Tsc\CatStorageSystem\Filesystem;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use DateTime;
+use Tsc\CatStorageSystem\Contracts\AdapterInterface;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;
 use Tsc\CatStorageSystem\Contracts\FileInterface;
 use Tsc\CatStorageSystem\Contracts\FileSystemInterface;
 
 class FileSystem implements FileSystemInterface
 {
+    /**
+     * The instance of the filesystem adapter.
+     *
+     * @var AdapterInterface
+     */
+    protected AdapterInterface $adapter;
+
+    /**
+     * Create a new FileSystem instance and init the adapter.
+     *
+     * @param  AdapterInterface  $adapter
+     * @return void
+     */
+    public function __construct(AdapterInterface $adapter)
+    {
+        $this->adapter = new $adapter();
+    }
+
     /**
      * Create the specified file in the specified directory.
      *
@@ -19,7 +37,11 @@ class FileSystem implements FileSystemInterface
      */
     public function createFile(FileInterface $file, DirectoryInterface $parent): FileInterface
     {
-        // TODO: Implement createFile() method.
+        $this->adapter->makeFile($parent->getPath() . '/' . $parent->getName(), $file->getName());
+
+        $file->setParentDirectory($parent);
+
+        return $file;
     }
 
     /**
@@ -30,7 +52,10 @@ class FileSystem implements FileSystemInterface
      */
     public function updateFile(FileInterface $file): FileInterface
     {
-        // TODO: Implement updateFile() method.
+        $path = $file->getPath() . '/' . $file->getName();
+        $this->adapter->updateFile($path, $file->getModifiedTime()->getTimestamp());
+
+        return $file;
     }
 
     /**
@@ -42,7 +67,11 @@ class FileSystem implements FileSystemInterface
      */
     public function renameFile(FileInterface $file, string $newName): FileInterface
     {
-        // TODO: Implement renameFile() method.
+        $this->adapter->rename($file->getPath(), $file->getPath(), $newName);
+
+        $file->setName($newName);
+
+        return $file;
     }
 
     /**
@@ -53,7 +82,7 @@ class FileSystem implements FileSystemInterface
      */
     public function deleteFile(FileInterface $file): bool
     {
-        // TODO: Implement deleteFile() method.
+        return $this->adapter->deleteFile($file->getPath() . '/' . $file->getName());
     }
 
     /**
@@ -64,9 +93,7 @@ class FileSystem implements FileSystemInterface
      */
     public function createRootDirectory(DirectoryInterface $directory): DirectoryInterface
     {
-        // TODO: check if folder already exists
-
-        mkdir($directory->getPath() . '/' . $directory->getName());
+        $this->adapter->makeDirectory($directory->getPath() . '/' . $directory->getName());
 
         return $directory;
     }
@@ -80,11 +107,12 @@ class FileSystem implements FileSystemInterface
      */
     public function createDirectory(DirectoryInterface $directory, DirectoryInterface $parent): DirectoryInterface
     {
-        // TODO: check if folder already exists
+        $parentPath = $parent->getPath() . '/' . $parent->getName();
+        $path = $parentPath . '/' . $directory->getName();
 
-        $path = $parent->getPath() . '/' . $parent->getName() . '/' . $directory->getName();
+        $this->adapter->makeDirectory($path);
 
-        mkdir($path);
+        $directory->setPath($parentPath);
 
         return $directory;
     }
@@ -97,7 +125,7 @@ class FileSystem implements FileSystemInterface
      */
     public function deleteDirectory(DirectoryInterface $directory): bool
     {
-        return rmdir($directory->getPath() . '/' . $directory->getName());
+        return $this->adapter->deleteDirectory($directory->getPath() . '/' . $directory->getName());
     }
 
     /**
@@ -107,22 +135,17 @@ class FileSystem implements FileSystemInterface
      * @param  string  $newName
      * @return DirectoryInterface
      */
-    public function renameDirectory(DirectoryInterface $directory, string $newName): string
+    public function renameDirectory(DirectoryInterface $directory, string $newName): DirectoryInterface
     {
-        // TODO: check if folder actually exists
-
-        rename(
-            $directory->getPath() . '/' . $directory->getName(),
-            $directory->getPath() . '/' . $newName
-        );
+        $this->adapter->rename($directory->getPath(), $directory->getName(), $newName);
 
         $directory->setName($newName);
 
-        return $newName;
+        return $directory;
     }
 
     /**
-     * Get the number of directories in the specified directory.
+     * Get the number of directories in the specified folder.
      *
      * @param  DirectoryInterface  $directory
      * @return int
@@ -131,18 +154,20 @@ class FileSystem implements FileSystemInterface
     {
         $path = $directory->getPath() . '/' . $directory->getName();
 
-        return count(glob($path . '/*', GLOB_ONLYDIR));
+        return count($this->adapter->directories($path));
     }
 
     /**
-     * Get the number of files in the specified directory.
+     * Get the number of files in the specified folder.
      *
      * @param  DirectoryInterface  $directory
      * @return int
      */
     public function getFileCount(DirectoryInterface $directory): int
     {
-        // TODO: Implement getFileCount() method.
+        $path = $directory->getPath() . '/' . $directory->getName();
+
+        return count($this->adapter->files($path));
     }
 
     /**
@@ -153,7 +178,9 @@ class FileSystem implements FileSystemInterface
      */
     public function getDirectorySize(DirectoryInterface $directory): int
     {
-        // TODO: Implement getDirectorySize() method.
+        $path = $directory->getPath() . '/' . $directory->getName();
+
+        return $this->adapter->directorySize($path);
     }
 
     /**
@@ -166,21 +193,16 @@ class FileSystem implements FileSystemInterface
     {
         $directories = [];
 
-        $directoryIterator = new RecursiveDirectoryIterator(
-            $directory->getPath() . '/' . $directory->getName(),
-            RecursiveDirectoryIterator::SKIP_DOTS
-        );
+        $path = $directory->getPath() . '/' . $directory->getName();
+        $items = $this->adapter->directories($path);
 
-        $subDirectories = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::SELF_FIRST);
-
-        foreach ($subDirectories as $subDirectory) {
-            if (! $subDirectory->isDir()) {
-                continue;
-            }
-
+        foreach ($items as $item) {
             $directories[] = (new Directory())
-                ->setName($subDirectory->getFilename())
-                ->setPath($subDirectory->getPath());
+                ->setName($item->getFilename())
+                ->setCreatedTime(
+                    (new DateTime())->setTimestamp($item->getCTime())
+                )
+                ->setPath($path);
         }
 
         return $directories;
@@ -195,18 +217,20 @@ class FileSystem implements FileSystemInterface
     public function getFiles(DirectoryInterface $directory): array
     {
         $files = [];
-        $directoryFiles = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($directory->getPath() . '/' . $directory->getName())
-        );
 
-        foreach ($directoryFiles as $file) {
-            if ($file->isDir()) {
-                continue;
-            }
+        $path = $directory->getPath() . '/' . $directory->getName();
+        $items = $this->adapter->files($path);
 
+        foreach ($items as $item) {
             $files[] = (new File())
-                ->setName($file->getFilename())
-                ->setSize($file->getSize())
+                ->setName($item->getFilename())
+                ->setSize($item->getSize())
+                ->setCreatedTime(
+                    (new DateTime())->setTimestamp($item->getCTime())
+                )
+                ->setModifiedTime(
+                    (new DateTime())->setTimestamp($item->getMTime())
+                )
                 ->setParentDirectory($directory);
         }
 
