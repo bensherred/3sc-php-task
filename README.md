@@ -11,12 +11,14 @@
 A few helpful CLI commands have been created to show examples of how to use the filesystem. Here is a list
 of the commands which are available to manipulate the cat gif images.
 
-- `cat:create` - Create a new cat gif
-- `cat:delete` - Delete an existing cat gif
-- `cat:directories` - List all the directories in the images folder
-- `cat:directory-size` - Get the directory size of the images folder
-- `cat:file-count` - Get the number of files in the images directory
-- `cat:list` - List all the cat gif images
+- cat
+  - `cat:create` - Create a new cat gif
+  - `cat:delete` - Delete an existing cat gif
+  - `cat:list` - List all the cat gif images
+- image
+  - `image:directories` - List all the directories in the images folder
+  - `image:directory-size` - Get the directory size of the images folder
+  - `image:file-count` - Get the number of files in the images directory
 
 For more information on the cli, run `php cube`.
 
