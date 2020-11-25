@@ -86,7 +86,7 @@ class FileTest extends TestCase
 
         $this->file->setName($fileName)->setParentDirectory($directory);
 
-        $path = $directory->getPath() . '/' . $directory->getName() . '/' . $fileName;
+        $path = $directory->getPath() . '/' . $directory->getName();
 
         $this->assertIsString($this->file->getPath());
         $this->assertSame($path, $this->file->getPath());
