@@ -1,45 +1,27 @@
-# 3SC PHP Task
+<p align="center"><a href="https://3sidedcube.com" target="_blank"><img src="https://3sidedcube.com/app/themes/tsc-2018/img/footer/logo-black.png" width="400"></a></p>
 
-### Getting Started
+### Getting Started & Requirements
 
+* You'll need php 7.3+
 * Clone this repository
 * Run `composer install` from the project directory
-* Commit your progress
-* You'll need php 5.6+ (ideally 7.1)
 
-### Task
-You will be building a simple ~~image~~ cat gif storage system.
+### Cube CLI
 
-Some interfaces have been provided in the `/src` directory. Your solution
-should implement each of these and provide usage examples which may be run
-from the command line.
+A few helpful CLI commands have been created to show examples of how to use the filesystem. Here is a list
+of the commands which are available to manipulate the cat gif images.
 
-The solution should demonstrate manipulation of the filesystem using the 
-images provided in the `/images` directory.
-
-### Important
-
-Your solution should demonstrate use of OO design principles, particularly
-[SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) and you
-may choose to use any additional design patterns.
-
-Additionally you may wish to make use of features provided by
-[Standard PHP Library](http://php.net/manual/en/book.spl.php), however this is
-optional.
-
-Your solution is not required to demonstrate uploading of files, and does
-not require a HTML front end. It should include a usage example that may be run from
-the command line to demonstrate reading and manipulation of the filesystem.
-
-Some sample images have been provided in the `/images` directory.
+- `cat:create` - Create a new cat gif
+- `cat:delete` - Delete an existing cat gif
+- `cat:directories` - List all the directories in the images folder
+- `cat:directory-size` - Get the directory size of the images folder
+- `cat:file-count` - Get the number of files in the images directory
+- `cat:list` - List all the cat gif images
 
 ### Tests
-Your solution should include some unit tests. Some examples have been provided already.
 
 To run tests, run the following commands:
 
 ```
-composer install
-
-./vendor/bin/phpunit
+composer test
 ```

@@ -17,7 +17,7 @@ class DeleteCommand extends CatCommand
     protected function configure(): void
     {
         $this->setName('cat:delete')
-            ->setDescription('Create a new cat gif')
+            ->setDescription('Delete an existing cat gif')
             ->addArgument('name', InputOption::VALUE_REQUIRED, 'The name of the cat gif you wish to delete');
     }
 
