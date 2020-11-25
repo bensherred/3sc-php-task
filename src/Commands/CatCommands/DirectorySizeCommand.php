@@ -1,11 +1,11 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands;
+namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DirectoryCatCommand extends CatCommand
+class DirectorySizeCommand extends CatCommand
 {
     /**
      * Configure the console command
@@ -14,8 +14,8 @@ class DirectoryCatCommand extends CatCommand
      */
     protected function configure(): void
     {
-        $this->setName('cat:directories')
-            ->setDescription('List all the directories in the images folder');
+        $this->setName('cat:directory-size')
+            ->setDescription('Get the directory size of the images folder');
     }
 
     /**
@@ -27,13 +27,9 @@ class DirectoryCatCommand extends CatCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $directories = $this->fileSystem->getDirectories($this->rootDirectory);
+        $size = $this->fileSystem->getFileCount($this->rootDirectory);
 
-        $output->writeln('<info>Here are the sub directories in the images directory:</info>');
-
-        foreach ($directories as $directory) {
-            $output->writeln($directory->getName());
-        }
+        $output->writeln('<info>The size is of the cat gif image directory is ' . $size . '</info>');
 
         return CatCommand::SUCCESS;
     }

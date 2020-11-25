@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands;
+namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
 use Symfony\Component\Console\Command\Command;
 use Tsc\CatStorageSystem\Contracts\DirectoryInterface;

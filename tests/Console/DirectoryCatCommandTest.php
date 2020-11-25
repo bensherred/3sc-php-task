@@ -19,6 +19,6 @@ class DirectoryCatCommandTest extends ConsoleTestCase
         $output = $commandTester->getDisplay();
 
         // Assert the output of the command
-        $this->assertStringContainsString('sub directories', $output);
+        $this->assertStringContainsString('my favourite cat gif', $output);
     }
 }

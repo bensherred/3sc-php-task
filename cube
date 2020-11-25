@@ -3,17 +3,21 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Tsc\CatStorageSystem\Commands\DirectoryCatCommand;
+use Tsc\CatStorageSystem\Commands\CatCommands\DirectoryCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
-use Tsc\CatStorageSystem\Commands\ListCatCommand;
+use Tsc\CatStorageSystem\Commands\CatCommands\DirectorySizeCommand;
+use Tsc\CatStorageSystem\Commands\CatCommands\FileCountCommand;
+use Tsc\CatStorageSystem\Commands\CatCommands\ListCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();
 
 $app->addCommands([
-    new DirectoryCatCommand(),
+    new DirectoryCommand(),
     new HollaCommand(),
-    new ListCatCommand(),
+    new DirectorySizeCommand(),
+    new FileCountCommand(),
+    new ListCommand(),
 ]);
 
 $app->run();

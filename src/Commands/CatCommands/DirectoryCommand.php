@@ -1,11 +1,11 @@
 <?php
 
-namespace Tsc\CatStorageSystem\Commands;
+namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListCatCommand extends CatCommand
+class DirectoryCommand extends CatCommand
 {
     /**
      * Configure the console command
@@ -14,8 +14,8 @@ class ListCatCommand extends CatCommand
      */
     protected function configure(): void
     {
-        $this->setName('cat:list')
-            ->setDescription('List all the cat gif images');
+        $this->setName('cat:directories')
+            ->setDescription('List all the directories in the images folder');
     }
 
     /**
@@ -27,12 +27,12 @@ class ListCatCommand extends CatCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $files = $this->fileSystem->getFiles($this->rootDirectory);
+        $directories = $this->fileSystem->getDirectories($this->rootDirectory);
 
-        $output->writeln('<info>Here are the names of your awesome cat GIF\'s:</info>');
+        $output->writeln('<info>Here are the sub directories in the images directory:</info>');
 
-        foreach ($files as $file) {
-            $output->writeln($file->getName());
+        foreach ($directories as $directory) {
+            $output->writeln($directory->getName());
         }
 
         return CatCommand::SUCCESS;
