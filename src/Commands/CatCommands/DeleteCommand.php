@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tsc\CatStorageSystem\Filesystem\File;
 
-class CreateCommand extends CatCommand
+class DeleteCommand extends CatCommand
 {
     /**
      * Configure the console command
@@ -16,9 +16,9 @@ class CreateCommand extends CatCommand
      */
     protected function configure(): void
     {
-        $this->setName('cat:create')
+        $this->setName('cat:delete')
             ->setDescription('Create a new cat gif')
-            ->addArgument('name', InputOption::VALUE_REQUIRED, 'The name of the cat gif');
+            ->addArgument('name', InputOption::VALUE_REQUIRED, 'The name of the cat gif you wish to delete');
     }
 
     /**
@@ -33,16 +33,17 @@ class CreateCommand extends CatCommand
         $name = $input->getArgument('name');
 
         if (!$name) {
-            $output->writeln('<error>Please enter a name for the new cat gif!</error>');
+            $output->writeln('<error>Please enter the name of the cat gif you wish to delete!</error>');
             return CatCommand::FAILURE;
         }
 
         $file = (new File())
-            ->setName($name . '.gif');
+            ->setName($name . '.gif')
+            ->setParentDirectory($this->rootDirectory);
 
-        $this->fileSystem->createFile($file, $this->rootDirectory);
+        $this->fileSystem->deleteFile($file);
 
-        $output->writeln('<info>Your new cat gif has been created, go check it out!</info>');
+        $output->writeln('<info>Your cat gif has been deleted!</info>');
 
         return CatCommand::SUCCESS;
     }

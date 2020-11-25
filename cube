@@ -4,6 +4,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Tsc\CatStorageSystem\Commands\CatCommands\CreateCommand;
+use Tsc\CatStorageSystem\Commands\CatCommands\DeleteCommand;
 use Tsc\CatStorageSystem\Commands\CatCommands\DirectoryCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
 use Tsc\CatStorageSystem\Commands\CatCommands\DirectorySizeCommand;
@@ -15,6 +16,7 @@ $app = new Application();
 
 $app->addCommands([
     new CreateCommand(),
+    new DeleteCommand(),
     new DirectoryCommand(),
     new HollaCommand(),
     new DirectorySizeCommand(),
