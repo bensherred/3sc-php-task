@@ -2,21 +2,15 @@
 
 namespace Tsc\CatStorageSystem\Tests\Console;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Tsc\CatStorageSystem\Commands\HollaCommand;
-use Tsc\CatStorageSystem\Tests\TestCase;
+use Tsc\CatStorageSystem\Tests\ConsoleTestCase;
 
-class HollaCommandTest extends TestCase
+class HollaCommandTest extends ConsoleTestCase
 {
     public function test_holla_command_outputs_message()
     {
-        // Register the command
-        $app = new Application();
-        $app->add(new HollaCommand());
-
         // Find the holla command
-        $command = $app->find('holla');
+        $command = $this->app->find('holla');
 
         // Execute the command and get the output
         $commandTester = new CommandTester($command);
