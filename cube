@@ -3,6 +3,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Tsc\CatStorageSystem\Commands\CatCommands\CreateCommand;
 use Tsc\CatStorageSystem\Commands\CatCommands\DirectoryCommand;
 use Tsc\CatStorageSystem\Commands\HollaCommand;
 use Tsc\CatStorageSystem\Commands\CatCommands\DirectorySizeCommand;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Application;
 $app = new Application();
 
 $app->addCommands([
+    new CreateCommand(),
     new DirectoryCommand(),
     new HollaCommand(),
     new DirectorySizeCommand(),
