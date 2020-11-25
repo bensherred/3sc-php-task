@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,7 +28,12 @@ class ListCommand extends CatCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $files = $this->fileSystem->getFiles($this->rootDirectory);
+        try {
+            $files = $this->fileSystem->getFiles($this->rootDirectory);
+        } catch (Exception $exception) {
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
+            return CatCommand::FAILURE;
+        }
 
         $output->writeln('<info>Here are the names of your awesome cat GIF\'s:</info>');
 

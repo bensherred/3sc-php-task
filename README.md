@@ -18,6 +18,8 @@ of the commands which are available to manipulate the cat gif images.
 - `cat:file-count` - Get the number of files in the images directory
 - `cat:list` - List all the cat gif images
 
+For more information on the cli, run `php cube`.
+
 ### Tests
 
 To run tests, run the following commands:
@@ -25,3 +27,6 @@ To run tests, run the following commands:
 ```
 composer test
 ```
+
+> Note: if you run the tests after you have manipulated the images folder, it may cause the console tests to fail.
+> This is due to checking the response for some commands.

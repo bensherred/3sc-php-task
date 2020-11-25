@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,7 +41,12 @@ class CreateCommand extends CatCommand
         $file = (new File())
             ->setName($name . '.gif');
 
-        $this->fileSystem->createFile($file, $this->rootDirectory);
+        try {
+            $this->fileSystem->createFile($file, $this->rootDirectory);
+        } catch (Exception $exception) {
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
+            return CatCommand::FAILURE;
+        }
 
         $output->writeln('<info>Your new cat gif has been created, go check it out!</info>');
 
