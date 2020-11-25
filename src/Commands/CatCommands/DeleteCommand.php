@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,7 +42,12 @@ class DeleteCommand extends CatCommand
             ->setName($name . '.gif')
             ->setParentDirectory($this->rootDirectory);
 
-        $this->fileSystem->deleteFile($file);
+        try {
+            $this->fileSystem->deleteFile($file);
+        } catch (Exception $exception) {
+            $output->writeln('<error>An error occurred while trying to delete your gif: ' . $exception->getMessage() . '</error>');
+            return CatCommand::FAILURE;
+        }
 
         $output->writeln('<info>Your cat gif has been deleted!</info>');
 

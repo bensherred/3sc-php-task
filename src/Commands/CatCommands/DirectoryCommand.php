@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,7 +28,12 @@ class DirectoryCommand extends CatCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $directories = $this->fileSystem->getDirectories($this->rootDirectory);
+        try {
+            $directories = $this->fileSystem->getDirectories($this->rootDirectory);
+        } catch (Exception $exception) {
+            $output->writeln('<error>An error occurred while trying to get the directories: ' . $exception->getMessage() . '</error>');
+            return CatCommand::FAILURE;
+        }
 
         $output->writeln('<info>Here are the sub directories in the images directory:</info>');
 

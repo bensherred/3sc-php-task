@@ -2,6 +2,7 @@
 
 namespace Tsc\CatStorageSystem\Commands\CatCommands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,7 +28,12 @@ class FileCountCommand extends CatCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $count = $this->fileSystem->getFileCount($this->rootDirectory);
+        try {
+            $count = $this->fileSystem->getFileCount($this->rootDirectory);
+        } catch (Exception $exception) {
+            $output->writeln('<error>An error occurred while trying to get the file count: ' . $exception->getMessage() . '</error>');
+            return CatCommand::FAILURE;
+        }
 
         $output->writeln('<info>There are ' . $count . ' cat gif images.</info>');
 
