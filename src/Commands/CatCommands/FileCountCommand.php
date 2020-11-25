@@ -31,7 +31,7 @@ class FileCountCommand extends CatCommand
         try {
             $count = $this->fileSystem->getFileCount($this->rootDirectory);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to get the file count: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 

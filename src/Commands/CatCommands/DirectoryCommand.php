@@ -31,7 +31,7 @@ class DirectoryCommand extends CatCommand
         try {
             $directories = $this->fileSystem->getDirectories($this->rootDirectory);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to get the directories: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 

@@ -31,7 +31,7 @@ class ListCommand extends CatCommand
         try {
             $files = $this->fileSystem->getFiles($this->rootDirectory);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to get the files: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 

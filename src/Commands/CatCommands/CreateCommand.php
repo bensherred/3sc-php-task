@@ -44,7 +44,7 @@ class CreateCommand extends CatCommand
         try {
             $this->fileSystem->createFile($file, $this->rootDirectory);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to create your gif: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 

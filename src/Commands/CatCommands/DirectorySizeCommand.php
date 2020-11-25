@@ -31,7 +31,7 @@ class DirectorySizeCommand extends CatCommand
         try {
             $size = $this->fileSystem->getFileCount($this->rootDirectory);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to get the directory size: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 

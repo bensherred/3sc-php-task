@@ -45,7 +45,7 @@ class DeleteCommand extends CatCommand
         try {
             $this->fileSystem->deleteFile($file);
         } catch (Exception $exception) {
-            $output->writeln('<error>An error occurred while trying to delete your gif: ' . $exception->getMessage() . '</error>');
+            $output->writeln('<error>An error has occurred: ' . $exception->getMessage() . '</error>');
             return CatCommand::FAILURE;
         }
 
